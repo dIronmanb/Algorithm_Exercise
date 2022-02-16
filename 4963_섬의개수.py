@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-def dfs(x,y): # 재귀호출에 의한 문제점 발생
+def dfs(x,y): # Recursion Error
     if x <= -1 or x >= width or y <= -1 or y >= height:
         return False
     
@@ -17,16 +17,16 @@ def dfs(x,y): # 재귀호출에 의한 문제점 발생
         dfs(x - 1, y + 1)
         dfs(x - 1, y - 1)
         return True
+        
     return False
-             
 
 
 result = []
-width, height = map(int, input().split()) #맵의 크기는 계산 중에 변하지 X
+width, height = [int(i) for i in input().split()] #맵의 크기는 계산 중에 변하지 X
 while (width, height) != (0,0):
     graph = []
     for i in range(height):
-        graph.append(list(map(int, input().split())))
+        graph.append([int(i) for i in input().split()])
 
     # DFS
     islands = 0
@@ -36,8 +36,6 @@ while (width, height) != (0,0):
                 islands += 1
     
     result.append(islands)
-    width, height = (map(int, input().split()))
+    width, height = [int(i) for i in input().split()]
 
-
-for i in range(len(result)):
-    print(result[i])
+print('\n'.join(result))
