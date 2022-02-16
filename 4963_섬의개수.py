@@ -1,4 +1,8 @@
 # -*- coding: utf-8 -*-
+import sys
+read = sys.stdin.readline
+sys.setrecursionlimit(10000)
+
 
 def dfs(x,y): # Recursion Error
     if x <= -1 or x >= width or y <= -1 or y >= height:
@@ -22,11 +26,11 @@ def dfs(x,y): # Recursion Error
 
 
 result = []
-width, height = [int(i) for i in input().split()] #맵의 크기는 계산 중에 변하지 X
+width, height = [int(i) for i in read().split()] #맵의 크기는 계산 중에 변하지 X
 while (width, height) != (0,0):
     graph = []
     for i in range(height):
-        graph.append([int(i) for i in input().split()])
+        graph.append([int(i) for i in read().split()])
 
     # DFS
     islands = 0
@@ -36,6 +40,6 @@ while (width, height) != (0,0):
                 islands += 1
     
     result.append(islands)
-    width, height = [int(i) for i in input().split()]
+    width, height = [int(i) for i in read().split()]
 
 print('\n'.join(result))

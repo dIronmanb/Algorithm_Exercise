@@ -1,60 +1,34 @@
-# -*- coding: utf-8 -*-
-
-from collections import deque
-
-          
-def DFS(start_node):
-    
-    visited = []
-    stack = deque()
-    stack.append(start_node)
-    
-    ## 방문이 필요한 리스트가 아직 존재한다면
-    while stack:
-        node = stack.popleft()
-
-        if len(node[0]) == 1:
-            return 1 if node[0] == 1 else 0
-
-        if node[0] <= -1 or node[0] >= width or node[1] <= -1 or node[1] >= height:
-            continue
-
-        if node not in visited:
-
-            visited.append(node)
-            
-            if graph[node[0]][node[1]] == 1:
-            ## 인접 노드들을 방문 예정 리스트에 추가
-                stack.extend([node[0] + 1, node[1]])
-                stack.extend([node[0] - 1, node[1]])
-                stack.extend([node[0], node[1] + 1])
-                stack.extend([node[0], node[1] - 1])
-                stack.extend([node[0] + 1, node[1] + 1])
-                stack.extend([node[0] + 1, node[1] - 1])
-                stack.extend([node[0] - 1, node[1] + 1])
-                stack.extend([node[0] - 1, node[1] - 1])
-
-                
-    return visited
+import sys
+read = sys.stdin.readline
+sys.setrecursionlimit(10000)
 
 
+def dfs(x : int, y : int)->None:
+    dx = [1,1,-1,-1,1,-1,0,0]
+    dy = [0,1,0,1,-1,-1,1,-1]
 
-result = []
-width, height = map(int, input().split()) #맵의 크기는 계산 중에 변하지 X
-while (width, height) != (0,0):
+    # remove 1 to 0 for removing land
+    graph[x][y] = 0
+    for i in range(8):
+        nx = x + dx[i]
+        ny = y + dy[i]
+        if 0 <= nx < h and 0 <= ny < w and graph[nx][ny] == 1:
+            dfs(nx, ny)
+
+
+while True:
+    w, h = [int(i) for i in read().split()]
+    if w == 0 and h == 0:
+        break
     graph = []
-    for i in range(height):
-        graph.append(list(map(int, input().split())))
-
-    #DFS
-    for i in range(width):
-        for j in range(height):
+    count = 0
+    for _ in range(h):
+        graph.append([int(i) for i in read().split()])
+    for i in range(h):
+        for j in range(w):
+            # if the position is land,
             if graph[i][j] == 1:
-                val = [i,j]
-                break
-    result.append(DFS(val))
-    width, height = (map(int, input().split()))
+                dfs(i, j)
+                count += 1
 
-
-for i in range(len(result)):
-    print(result[i])
+    print(count)
