@@ -1,24 +1,8 @@
-# -*- coding: utf-8 -*-
-# 작업 중....
-
 import sys
 from collections import deque
 read = sys.stdin.readline
 sys.setrecursionlimit(10000)
 
-
-def bfs(x, y):
-    global days
-    dx = [1, -1,  0,  0]
-    dy = [0,  0,  1, -1]
-
-    for i in range(4):
-        nx = x + dx[i]
-        ny = y + dy[i]
-        # The tomatoes that are adjacent to each other are ripe.
-        if 0 <= nx < n and 0 <= ny < m and graph[nx][ny] == 0:
-            visited[nx][ny] = 1
-            graph[nx][ny] = 1
 
 
 m, n = [int(i) for i in read().split()]
@@ -66,12 +50,4 @@ if(m * n - empty - present_tomatoes == 0):
       print(days)
 # Otherwise
 else:
-    print("m * n + empty - present_tomatoes:",m * n + empty - present_tomatoes)
-    print("m * n:", m * n)
-    print("empty:", empty)
-    print("present_tomatoes:", present_tomatoes)
     print(-1)
-
-
-    
-
