@@ -6,7 +6,7 @@ sys.setrecursionlimit(10000)
 
 def dfs(x,y):
 
-    if not( (0<=x<height) and (0<= y <width)) or graph[x][y] == 0:
+    if not( (0<=x<height) and (0<= y <width)):
         return False
         
     if graph[x][y] == 1:

@@ -18,9 +18,7 @@ def dfs(x: int, y: int)->bool:
         if 0 <= nx < width and 0 <= ny < height and field[nx][ny] == True:
             dfs(nx,ny)
 
-            
-
-
+        
 
 
 test_nums = int(read())
