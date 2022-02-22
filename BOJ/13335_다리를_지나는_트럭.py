@@ -1,10 +1,11 @@
+# -*- coding: utf-8 -*-
 # sum() 대신에 total_weight 사용 (동적프로그래밍)
 from collections import deque
+import sys
+read = sys.stdin.readline
 
-bridge_length = 100
-weight = 100
-truck_weights = deque([10,10,10,10,10,10,10,10,10,10])
-
+truck_num, bridge_length, weight = [int(i) for i in read().split()]
+truck_weights = deque([int(i) for i in read().split()])
 
 bridge = deque(maxlen = bridge_length)
 second = 0
@@ -26,5 +27,5 @@ while True:
     if not truck_weights and total_weight == 0:
         break
 
-print(second)
+print(second-1)
 print("종료")
