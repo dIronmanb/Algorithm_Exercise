@@ -1,61 +1,61 @@
-# -*- coding: utf-8 -*-
 import sys
 from collections import deque
 read = sys.stdin.readline
 
 A = read().rstrip()
-T = read().rstrip()
+T = deque(read().rstrip())
 
+front = deque()
+back = deque()
 
-left_stack = deque()
-right_stack = deque()
+left = 0
+right = len(T) - 1
 
-low, high = 0, len(T) - 1
-
-while low <= high:
+while left < right:
     
-    while low <= high:
-        flag = False
-
-        left_stack.append(T[low])
-        low += 1
-
-        if len(left_stack) >= len(A):
+    while left <= right:
+        left += 1
+        front.append(T.popleft())
+        if len(front) >= len(A):
             flag = True
-            for i in range(len(A)):
-                if left_stack[len(left_stack) - len(A) + i] != A[i]:
+            i = 0
+            while i < len(A):
+                if A[len(A) - 1 - i] == front[len(front) - 1 - i]:
+                    i += 1
+                else:
                     flag = False
                     break
             if flag:
-                for i in range(len(A)):
-                    left_stack.pop()
+                for i in range(len(A)): front.pop()
                 break
-    
-    while low <= high:
-        flag = False
 
-        right_stack.append(T[high])
-        high -= 1
-
-        if len(right_stack) >= len(A):
+    while left <= right:
+        right -= 1
+        back.append(T.pop())
+        if len(back) >= len(A):
             flag = True
-            for i in range(len(A)):
-                if right_stack[i] != A[i]:
+            i = 0
+            while i < len(A):
+                if A[i] == back[len(back) - 1 - i]:
+                    i += 1 
+                else:
                     flag = False
                     break
             if flag:
-                for i in range(len(A)):
-                    right_stack.popleft()
+                for i in range(len(A)): back.pop()
                 break
 
-# print(left_stack)
-# print(right_stack)
-result = ""
-for i in range(len(left_stack)):
-    result += left_stack[i]
-for i in range(len(right_stack)):
-    result += right_stack[len(right_stack) - i - 1]
 
-# print(result)
-result = result.replace(A,"")
-print(result)
+result = []
+for i in range(len(front)):
+    result.append(front.popleft())
+for i in range(len(back)):
+    result.append(back.pop())
+
+ti = 0
+while ti >= 0:
+    ti = ''.join(result).find(A)
+    if ti != -1:
+        del result[ti:ti+len(A)]
+
+print(''.join(result))
