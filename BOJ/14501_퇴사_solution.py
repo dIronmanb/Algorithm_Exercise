@@ -1,42 +1,25 @@
 import sys
-from collections import deque
 read = sys.stdin.readline
 
 
+N = int(read())
+t = []
+p = []
+reward = [0 for _ in range(N+1)]
+result = 0
+
+for i in range(N):
+    days, pay = [int(i) for i in read().split()]
+    t.append(days)
+    p.append(days)
 
 
-leave = int(read())
-work_table = deque()
-price_table = []
-money = 0
-impossible = [0] * days
+for i in range(N):
+    if i + t[i] < N:
+        reward[i + t[i]] = max(reward[i + t[i]] , reward[i] + p[i])
+        result = max(result, reward[i + t[i]])
 
+    reward[i + 1] = max(reward[i + 1], reward[i])
+    result = max(result, reward[i + 1])
 
-temp = []
-process = deque()
-
-for i in range(leave):
-    work_table.append([int(i) for i in read().split()])
-
-
-for i in range(leave):
-    days, pay = work_table.popleft()
-    next_day = i + days
-
-    if next_day > leave:
-        impossible[i] = True
-    else:
-        temp.append((days, pay))
-        for i in range(days, leave):
-            if i + work_table[i][0] <= leave:
-                process.append(i)
-        
-        for i in process:
-            days, pay = work_table[i]
-            next_day = i + days
-
-            if next_day > leave:
-                impossible[i] = True
-            else:
-                temp.append
-                
+print(result)
