@@ -1,51 +1,39 @@
+import sys
+read = sys.stdin.readline
 from timeit import default_timer as timer
 
-Min, Max = [int(i) for i in input().split()]
+Min, Max = [int(i) for i in read().split()]
 
-if 
-
-
-
-# def isSquare(x):
-#     if x < 4:
-#         return False, 0
-#     i = 2
-#     while i**2 <= x:
-#         if x % (i ** 2) == 0:
-#             return True, i
-#         i += 1
-#     return False, 0
+nums = {i : False for i in range(Min, Max +1)}
+diff = Max - Min + 1
+i = 2
 
 
+start = timer()
 
-# start = timer()
-
-# nums = [False for _ in range(Min, Max + 1)]
-# #print(nums.keys())
-# for i in range(Min, Max + 1):
-#     if nums[i - Min]:
-#         continue
-        
-#     truth, a = isSquare(i)
+while i ** 2 <= Max:
     
-#     if truth:
-#         pass
-
-# # nums = {i: False for i in range(Min, Max)}
-# # #print(nums.keys())
-# # for i in nums.keys():
-# #     if nums[i]:
-# #         continue
+    # Get the quote of Min
+    q = Min // i**2
+    
+    # if quote is not zero, (Now there is reminder)
+    # add 1 from the quotient to exsit within the range: q * (i ** 2) > Min
+    if Min % i**2 != 0:
+        q += 1
+    
+    # q * (i ** 2) corresponds to "제곱수"
+    while q * i ** 2<= Max:
         
-# #     if isSquare(i):
-# #         nums[i] = True
-
-# # print(nums.values())
-# # num = sum(nums.values())
-# num = sum(nums)
-# print(Max - Min + 1 - num)
-# print(timer() - start)
-
-         
-
-      
+        if nums[q * i ** 2] == False:
+            nums[q * i ** 2] = True
+            diff -= 1
+        
+        q += 1
+    
+    i += 1
+    
+print(diff)    
+print(timer() - start)  
+    
+        
+    
