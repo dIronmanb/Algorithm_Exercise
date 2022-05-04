@@ -15,6 +15,7 @@ def union_parent(parent, a, b):
     if a == b:
         return
     
+    # Introducing the concept of "Rank" to avoid worst-case scenarios
     if rank[a] < rank[b]:
         parent[a] = b
     else:
